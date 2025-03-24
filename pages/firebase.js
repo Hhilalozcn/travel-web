@@ -4,12 +4,12 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "FIREBASE_API_KEY",
-  authDomain: "FIREBASE_AUTH_DOMAIN",
-  projectId: "FIREBASE_PROJECT_ID",
-  storageBucket: "FIREBASE_STORAGE_BUCKET",
-  messagingSenderId: "FIREBASE_MESSAGING_SENDER_ID",
-  appId: "FIREBASE_APP_ID",
+  apiKey: "AIzaSyBSruCDX-bU1LAyc-5vZXmCQjaXOUCjLi0",
+  authDomain: "seyahat-gunlugum.firebaseapp.com",  // Update with your Auth domain
+  projectId: "seyahat-gunlugum",  // Your Project ID
+  storageBucket: "seyahat-gunlugum.appspot.com",  // Update with your Storage bucket
+  messagingSenderId: "86174064518",  // Your Messaging Sender ID
+  appId: "1:86174064518:web:YOUR_APP_ID",  // Update with your App ID
 };
 
 // Firebase tek sefer initialize edilmeli
