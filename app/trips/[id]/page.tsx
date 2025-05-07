@@ -19,15 +19,15 @@ export default function TripDetail() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (params.id) {
-      // Gerçek bir uygulamada, bu bir API'den veri çekerdi
-      const tripData = getTripById(params.id as string)
+    const tripId = Array.isArray(params?.id) ? params.id[0] : params?.id
+    if (tripId) {
+      const tripData = getTripById(tripId)
       if (tripData) {
         setTrip(tripData)
       }
-      setLoading(false)
     }
-  }, [params.id])
+    setLoading(false)
+  }, [params])
 
   if (loading) {
     return (
@@ -79,7 +79,7 @@ export default function TripDetail() {
           </div>
         </div>
         <div className="absolute top-4 right-4">
-          <Badge className="bg-[#FF6B6B] hover:bg-[#FF5252] text-white text-sm px-3 py-1" size="lg">
+          <Badge className="bg-[#FF6B6B] hover:bg-[#FF5252] text-white text-sm px-3 py-1">
             {trip.tripType}
           </Badge>
         </div>
@@ -89,30 +89,32 @@ export default function TripDetail() {
         <p className="whitespace-pre-line">{trip.description}</p>
       </Card>
 
-      <div className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4 text-[#1A535C] border-b-2 border-[#4ECDC4] pb-2 inline-block">
-          Fotoğraf Galerisi
-        </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {trip.photos.map((photo, index) => (
-            <div
-              key={index}
-              className="relative aspect-square rounded-md overflow-hidden shadow-md hover:shadow-xl transition-shadow"
-            >
-              <Image
-                src={photo || "/placeholder.svg"}
-                alt={`Seyahat fotoğrafı ${index + 1}`}
-                fill
-                className="object-cover hover:scale-110 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 hover:opacity-100 transition-opacity"></div>
-            </div>
-          ))}
+      {trip.photos?.length > 0 && (
+        <div className="mb-12">
+          <h2 className="text-2xl font-semibold mb-4 text-[#1A535C] border-b-2 border-[#4ECDC4] pb-2 inline-block">
+            Fotoğraf Galerisi
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {trip.photos.map((photo, index) => (
+              <div
+                key={index}
+                className="relative aspect-square rounded-md overflow-hidden shadow-md hover:shadow-xl transition-shadow"
+              >
+                <Image
+                  src={photo || "/placeholder.svg"}
+                  alt={`Seyahat fotoğrafı ${index + 1}`}
+                  fill
+                  className="object-cover hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 hover:opacity-100 transition-opacity"></div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
-      <CommentSection tripId={trip.id} initialComments={trip.comments} />
+      {/* ✅ Yorumlar kısmı görünür */}
+      <CommentSection tripId={trip.id} initialComments={trip.comments || []} />
     </div>
   )
 }
-

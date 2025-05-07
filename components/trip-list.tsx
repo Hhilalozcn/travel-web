@@ -60,7 +60,13 @@ export default function TripList() {
         <Link href={`/trips/${trip.id}`} key={trip.id}>
           <Card className="h-full overflow-hidden hover:shadow-lg transition-shadow border-t-4 border-t-[#FF6B6B] hover:scale-[1.02] transition-all duration-300">
             <div className="relative h-48 w-full">
-              <Image src={trip.coverImage || "/placeholder.svg"} alt={trip.title} fill className="object-cover" />
+              <Image 
+                src={trip.coverImage || "/images/default.jpg"} 
+                alt={trip.title || "Seyahat Görseli"}
+                fill 
+                className="object-cover"
+                priority
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <div className="absolute bottom-2 right-2">
                 <Badge className="bg-[#FF6B6B] hover:bg-[#FF5252] text-white">{trip.tripType}</Badge>

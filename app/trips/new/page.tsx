@@ -15,36 +15,65 @@ import Link from "next/link"
 export default function NewTrip() {
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
+
   const [formData, setFormData] = useState({
     title: "",
     location: "",
     date: "",
     tripType: "",
     description: "",
-    coverImage: "/placeholder.svg?height=400&width=600",
+    coverImage: "", // base64 veri buraya yazılacak
   })
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
+    setFormData((prev: FormData) => ({ ...prev, [name]: value }))
   }
 
-  const handleSelectChange = (name, value) => {
-    setFormData((prev) => ({ ...prev, [name]: value }))
+  interface FormData {
+    title: string;
+    location: string;
+    date: string;
+    tripType: string;
+    description: string;
+    coverImage: string;
   }
 
-  const handleSubmit = (e) => {
+  const handleSelectChange = (name: keyof FormData, value: string): void => {
+    setFormData((prev: FormData) => ({ ...prev, [name]: value }))
+  }
+
+  interface TripSubmissionData extends FormData {
+    id: string;
+    photos: string[];
+    comments: any[];
+  }
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const result = reader.result as string;
+      setImagePreview(result);
+      setFormData((prev) => ({ ...prev, coverImage: result }));
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Gerçek bir uygulamada, bu bir API'ye veri gönderirdi
     setTimeout(() => {
       addTrip({
         ...formData,
         id: Date.now().toString(),
-        photos: ["/placeholder.svg?height=400&width=600"],
+        photos: [formData.coverImage],
         comments: [],
-      })
+      } as TripSubmissionData)
       setIsSubmitting(false)
       router.push("/")
     }, 1000)
@@ -67,9 +96,7 @@ export default function NewTrip() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <Label htmlFor="title" className="text-[#1A535C]">
-                  Seyahat Başlığı
-                </Label>
+                <Label htmlFor="title" className="text-[#1A535C]">Seyahat Başlığı</Label>
                 <Input
                   id="title"
                   name="title"
@@ -82,9 +109,7 @@ export default function NewTrip() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="location" className="text-[#1A535C]">
-                  Konum
-                </Label>
+                <Label htmlFor="location" className="text-[#1A535C]">Konum</Label>
                 <Input
                   id="location"
                   name="location"
@@ -97,9 +122,7 @@ export default function NewTrip() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="date" className="text-[#1A535C]">
-                  Tarih
-                </Label>
+                <Label htmlFor="date" className="text-[#1A535C]">Tarih</Label>
                 <div className="relative">
                   <Calendar className="absolute left-3 top-3 h-4 w-4 text-[#FF6B6B]" />
                   <Input
@@ -115,9 +138,7 @@ export default function NewTrip() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="tripType" className="text-[#1A535C]">
-                  Seyahat Türü
-                </Label>
+                <Label htmlFor="tripType" className="text-[#1A535C]">Seyahat Türü</Label>
                 <Select
                   value={formData.tripType}
                   onValueChange={(value) => handleSelectChange("tripType", value)}
@@ -138,9 +159,7 @@ export default function NewTrip() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="description" className="text-[#1A535C]">
-                Açıklama
-              </Label>
+              <Label htmlFor="description" className="text-[#1A535C]">Açıklama</Label>
               <Textarea
                 id="description"
                 name="description"
@@ -154,23 +173,44 @@ export default function NewTrip() {
             </div>
 
             <div className="space-y-2">
-              <Label className="text-[#1A535C]">Kapak Resmi</Label>
-              <div className="border-2 border-dashed border-[#4ECDC4] rounded-lg p-6 text-center bg-gradient-to-r from-[#F7FFF7] to-white dark:from-[#1A535C]/10 dark:to-background">
-                <ImagePlus className="h-8 w-8 mx-auto mb-2 text-[#FF6B6B]" />
-                <p className="text-sm text-muted-foreground mb-2">
-                  Bir resmi sürükleyip bırakın veya göz atmak için tıklayın
-                </p>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  className="border-[#FF6B6B] text-[#FF6B6B] hover:bg-[#FF6B6B]/10"
-                >
-                  Resim Yükle
-                </Button>
-                <p className="text-xs text-muted-foreground mt-2">(Bu demoda yer tutucu resimler kullanıyoruz)</p>
-              </div>
-            </div>
+  <Label className="text-[#1A535C]">Kapak Resmi</Label>
+  <div className="border-2 border-dashed border-[#4ECDC4] rounded-lg px-6 py-8 text-center bg-gradient-to-r from-[#F7FFF7] to-white">
+    <div className="flex flex-col items-center justify-center">
+      {imagePreview ? (
+        <img
+          src={imagePreview}
+          alt="Kapak"
+          className="max-h-48 rounded-md mb-4"
+        />
+      ) : (
+        <ImagePlus className="h-8 w-8 text-[#FF6B6B] mb-4" />
+      )}
+
+      <p className="text-sm text-muted-foreground mb-2">
+        Bir resmi sürükleyip bırakın veya göz atmak için tıklayın
+      </p>
+
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleImageUpload}
+        className="hidden"
+        id="coverImageInput"
+      />
+
+      <Button
+        type="button"
+        variant="outline"
+        size="sm"
+        className="border-[#FF6B6B] text-[#FF6B6B] hover:bg-[#FF6B6B]/10 cursor-pointer"
+        onClick={() => document.getElementById('coverImageInput')?.click()}
+      >
+        Resim Yükle
+      </Button>
+    </div>
+  </div>
+</div>
+
 
             <div className="flex justify-end">
               <Button
@@ -188,4 +228,3 @@ export default function NewTrip() {
     </div>
   )
 }
-

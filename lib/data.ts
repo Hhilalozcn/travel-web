@@ -8,15 +8,13 @@ let trips: Trip[] = [
     title: "Bali'de Yaz",
     location: "Bali, Endonezya",
     date: "2023-07-15",
-    tripType: "Beach",
+    tripType: "Plaj",
     description:
       "Bali'nin plajlarını ve kültürünü keşfederek iki harika hafta geçirdim. Ubud, Seminyak ve Uluwatu'yu ziyaret ettim. Yemekler inanılmazdı ve insanlar çok cana yakındı. Öne çıkan anlar arasında Tanah Lot tapınağında gün batımını izlemek ve gün doğumunda Mount Batur'a tırmanmak vardı.\n\nAyrıca bir yemek kursu aldım ve geleneksel Bali yemeklerini yapmayı öğrendim. Geri dönmek için sabırsızlanıyorum!",
-    coverImage: "/placeholder.svg?height=400&width=600&text=Bali+Plajı&fontColor=ffffff&backgroundColor=FF6B6B",
+    coverImage: "/images/imagePlaceholder.jpg",
     photos: [
-      "/placeholder.svg?height=400&width=400&text=Tapınak&fontColor=ffffff&backgroundColor=4ECDC4",
-      "/placeholder.svg?height=400&width=400&text=Pirinç+Terasları&fontColor=ffffff&backgroundColor=FF6B6B",
-      "/placeholder.svg?height=400&width=400&text=Şelale&fontColor=ffffff&backgroundColor=1A535C",
-      "/placeholder.svg?height=400&width=400&text=Plaj+Günbatımı&fontColor=ffffff&backgroundColor=FF8E53",
+      "/images/imagePlaceholder.jpg",
+      
     ],
     comments: [
       {
@@ -40,14 +38,12 @@ let trips: Trip[] = [
     title: "New York'ta Hafta Sonu",
     location: "New York City, ABD",
     date: "2023-09-22",
-    tripType: "City",
+    tripType: "Şehir",
     description:
       "Büyük Elma'ya hızlı bir hafta sonu kaçamağı. Times Meydanı, Central Park ve Met gibi klasik yerleri ziyaret ettim. Little Italy'de en iyi pizzayı yedim ve bir Broadway gösterisi izledim.",
-    coverImage: "/placeholder.svg?height=400&width=600&text=NYC+Silüeti&fontColor=ffffff&backgroundColor=1A535C",
+    coverImage: "/images/newyork.jpeg",
     photos: [
-      "/placeholder.svg?height=400&width=400&text=Central+Park&fontColor=ffffff&backgroundColor=4ECDC4",
-      "/placeholder.svg?height=400&width=400&text=Times+Meydanı&fontColor=ffffff&backgroundColor=FF6B6B",
-      "/placeholder.svg?height=400&width=400&text=Brooklyn+Köprüsü&fontColor=ffffff&backgroundColor=FF8E53",
+      "/images/newyork.jpeg",
     ],
     comments: [
       {
@@ -64,15 +60,13 @@ let trips: Trip[] = [
     title: "İsviçre Alpleri'nde Yürüyüş",
     location: "Interlaken, İsviçre",
     date: "2023-06-10",
-    tripType: "Mountain",
+    tripType: "Dağ",
     description:
       "Nefes kesici İsviçre Alpleri'nde yürüyüş yaparak bir hafta geçirdim. Manzaralar kesinlikle inanılmazdı, her yerde karla kaplı dağlar ve kristal berraklığında göller vardı.",
-    coverImage: "/placeholder.svg?height=400&width=600&text=İsviçre+Alpleri&fontColor=ffffff&backgroundColor=4ECDC4",
+    coverImage: "/images/isvicre.jpeg",
     photos: [
-      "/placeholder.svg?height=400&width=400&text=Dağ+Manzarası&fontColor=ffffff&backgroundColor=1A535C",
-      "/placeholder.svg?height=400&width=400&text=Alp+Gölü&fontColor=ffffff&backgroundColor=4ECDC4",
-      "/placeholder.svg?height=400&width=400&text=Yürüyüş+Yolu&fontColor=ffffff&backgroundColor=FF6B6B",
-      "/placeholder.svg?height=400&width=400&text=Dağ+Kulübesi&fontColor=ffffff&backgroundColor=FF8E53",
+      "/images/isvicre.jpeg",
+      
     ],
     comments: [],
   },

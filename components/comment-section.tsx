@@ -19,7 +19,7 @@ export default function CommentSection({ tripId, initialComments }: CommentSecti
   const [newComment, setNewComment] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!newComment.trim()) return
 

@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start -p 3001"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -50,9 +49,8 @@
     "metro": "^0.82.0",
     "next": "^15.1.0",
     "next-themes": "^0.4.4",
-    "react": "^19",
-    "react-day-picker": "8.10.1",
-    "react-dom": "^19",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-hook-form": "^7.54.1",
     "react-resizable-panels": "^2.1.7",
     "recharts": "2.15.0",
